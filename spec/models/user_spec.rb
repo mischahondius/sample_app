@@ -20,7 +20,7 @@ describe User do
 
   it { should be_valid }
 
-describe "when password is not present" do
+  describe "when password is not present" do
     before do
       @user = User.new(name: "Example User", email: "user@example.com",
                        password: " ", password_confirmation: " ")
@@ -107,9 +107,13 @@ describe "when password is not present" do
       @user.save
       expect(@user.reload.email).to eq mixed_case_email.downcase
     end
-  end
+  
+      describe "remember token" do
+        before { @user.save }
+        its(:remember_token) { should_not be_blank }
+      end
+    end
 end
-
 
 
 
